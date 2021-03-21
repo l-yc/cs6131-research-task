@@ -62,10 +62,21 @@ scrape_configs:
 
 Now, you will need to restart the prometheus instance. Execute the following command:
 
+Windows:
+(todo add command)
+
+macOS:
+```docker run \
+    -p 9090:9090 \
+    -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml:Z \
+    prom/prometheus
+```
+
+Linux:
 ```sh
 docker run \
-    --network=host \
     -p 9090:9090 \
+    --add-host=host.docker.internal:172.17.0.1
     -v ./prometheus.yml:/etc/prometheus/prometheus.yml:Z \
     prom/prometheus
 ```
