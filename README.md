@@ -63,10 +63,17 @@ scrape_configs:
 Now, you will need to restart the prometheus instance. Execute the following command:
 
 Windows:
-(todo add command)
+(todo: confirm command, tmp pasting macOS variant here)
+```sh
+docker run \
+    -p 9090:9090 \
+    -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml:Z \
+    prom/prometheus
+```
 
 macOS:
-```docker run \
+```sh
+docker run \
     -p 9090:9090 \
     -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml:Z \
     prom/prometheus
