@@ -26,7 +26,7 @@ Execute the above command to start your first instance of prometheus. You will b
 
 Now, let's try setting up a few **targets** for prometheus to scrape data from (note: the default configuration already includes an endpoint, but we will explain it using this configuration file for simplicity)
 
-Paste the following code into `prometheus.yml`:
+Create a file `prometheus.yml` and paste the following code into it:
 
 ```yaml
 global:
@@ -57,33 +57,29 @@ scrape_configs:
     metrics_path: 'queueData'
 
     static_configs:
-      - targets: ['localhost:8080']
+      - targets: ['host.docker.internal:8080']
 ```
+
+This is simply the default yml config file with an additional job `canteen`, which we'll see later.
 
 Now, you will need to restart the prometheus instance. Execute the following command:
 
 Windows:
-(todo: confirm command, tmp pasting macOS variant here)
-```sh
-docker run \
-    -p 9090:9090 \
-    -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml:Z \
-    prom/prometheus
+```cmd
+docker run -p 9090:9090 -v %cd%\prometheus.yml:/etc/prometheus/prometheus.yml:Z prom/prometheus
 ```
 
 macOS:
 ```sh
-docker run \
-    -p 9090:9090 \
+docker run -p 9090:9090 \
     -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml:Z \
     prom/prometheus
 ```
 
 Linux:
 ```sh
-docker run \
-    -p 9090:9090 \
-    --add-host=host.docker.internal:172.17.0.1
+docker run -p 9090:9090 \
+    --add-host=host.docker.internal:172.17.0.1 \
     -v ./prometheus.yml:/etc/prometheus/prometheus.yml:Z \
     prom/prometheus
 ```
